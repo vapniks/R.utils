@@ -596,7 +596,7 @@ setMethodS3("parse", "GString", function(object, ...) {
   s <- getRaw(object);
 
   # If there is no markup, then there is nothing to parse
-  if (length(s) == 0L || !regexpr("${", s, fixed=TRUE) != -1L) {
+  if (length(s) == 0L || regexpr("\\$[{[]", s, fixed=FALSE) == -1L) {
     return(list(text=s));
   }
 
@@ -714,7 +714,7 @@ setMethodS3("evaluate", "GString", function(object, envir=parent.frame(), ...) {
   # If there is no markup, then return alrady here.
   s <- unclass(object);
   # If there is no markup, then there is nothing to parse
-  if (length(s) == 0L || !regexpr("${", s, fixed=TRUE) != -1L) {
+  if (length(s) == 0L || regexpr("\\$[{[]", s, fixed=TRUE) == -1L) {
     return(s);
   }
 
